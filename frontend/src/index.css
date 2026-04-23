@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-950 text-white antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-white/5 backdrop-blur-md border border-white/10;
+  }
+  .glass-dark {
+    @apply bg-black/40 backdrop-blur-md border border-white/10;
+  }
+}
+
+/* Fielder transition */
+.fielder-dot {
+  transition: cx 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+              cy 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
