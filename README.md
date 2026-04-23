@@ -1,6 +1,7 @@
-# Cricket Field Placement AI
+# Cricket Field Placement Model
 
-An AI-powered tool that recommends cricket field placements based on match context. It combines a machine-learning model trained on real Cricsheet ball-by-ball data with a rule-based fallback, and presents everything through an interactive React frontend.
+An ML-powered tool that recommends cricket field placements based on match context.
+It combines a machine-learning model trained on real Cricsheet ball-by-ball data with a rule-based fallback, and presents everything through an interactive React frontend.
 
 ---
 
@@ -32,7 +33,7 @@ Because Cricsheet has no direct field placement data, zone labels are derived as
 
 Features used: match type, match phase (powerplay/middle/death), over number, wickets fallen, run rate, bowler type, batter strike rate, wides/no-balls.
 
-### API (FastAPI)
+### API
 
 `backend/api.py` exposes:
 

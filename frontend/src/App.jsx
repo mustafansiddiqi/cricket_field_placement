@@ -132,7 +132,7 @@ export default function App() {
                     : "text-gray-400 hover:text-white"
                 }`}
               >
-                {t === "field" ? "🏏 Field" : "⚡ Simulate"}
+                {t === "field" ? "🏏 Field" : "Simulate"}
               </button>
             ))}
           </div>

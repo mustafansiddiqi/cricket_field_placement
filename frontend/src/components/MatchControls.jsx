@@ -95,7 +95,7 @@ export default function MatchControls({ match, onChange, onSuggest, loading }) {
 
       {/* Over */}
       <Slider
-        label="Current Over" icon="⚡"
+        label="Current Over" icon="◎"
         value={match.over} onChange={v => onChange({ over: v })}
         min={0} max={match.total_overs - 1}
       />
@@ -191,7 +191,7 @@ export default function MatchControls({ match, onChange, onSuggest, loading }) {
             Calculating…
           </span>
         ) : (
-          "⚡ Suggest Field"
+          "Suggest Field"
         )}
       </button>
     </div>

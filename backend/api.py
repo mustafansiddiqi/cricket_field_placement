@@ -345,7 +345,7 @@ def simulate_delivery(req: DeliveryRequest):
         "two":    [f"Driven well — they run two!", f"Good running between the wickets, two taken."],
         "four":   [f"FOUR! Cracking shot through {ball_zone.replace('_',' ')}!", f"Punched away for four!"],
         "six":    [f"SIX! Massive hit over {ball_zone.replace('_',' ')}!", f"Into the stands! {req.batter} is in form!"],
-        "wicket": [f"OUT! {wicket_kind.upper()}! {req.bowler} strikes!", f"Huge wicket! {req.batter} is gone — {wicket_kind}."],
+        "wicket": [f"OUT! {(wicket_kind or 'WICKET').upper()}! {req.bowler} strikes!", f"Huge wicket! {req.batter} is gone — {wicket_kind}."],
     }
 
     import random as rnd

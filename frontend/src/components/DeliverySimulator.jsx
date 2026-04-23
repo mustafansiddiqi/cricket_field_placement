@@ -136,7 +136,7 @@ export default function DeliverySimulator({
                    hover:from-red-400 hover:via-orange-400 hover:to-yellow-400
                    shadow-lg shadow-orange-500/30 transition-all active:scale-[0.98]"
       >
-        ⚡ Bowl Next Delivery
+        Bowl Next Delivery
       </button>
 
       {lastDelivery && (
