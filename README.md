@@ -7,6 +7,8 @@ It combines a machine-learning model trained on real Cricsheet ball-by-ball data
 
 ## How it works
 
+Install dependencies from `requirements.txt` and run `start.py` to train the model and start the app.
+
 ### Data pipeline
 
 Cricsheet JSON match files (T20s, IT20s, ODIs, ODMs) are parsed by `process_data.py` into two CSVs:
