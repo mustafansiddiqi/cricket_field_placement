@@ -27,11 +27,10 @@ export default function App() {
   const [fieldData, setFieldData]   = useState(null);
   const [loading, setLoading]       = useState(false);
   const [error, setError]           = useState(null);
-  const [tab, setTab]               = useState("field");  // "field" | "simulate"
+  const [tab, setTab]               = useState("field");
   const [lastDelivery, setLastDelivery] = useState(null);
   const [ballAnimation, setBallAnimation] = useState(null);
 
-  // Fetch field placement from API
   const fetchField = useCallback(async (ctx = match) => {
     setLoading(true);
     setError(null);
@@ -51,7 +50,6 @@ export default function App() {
     }
   }, [match]);
 
-  // Simulate a delivery
   const simulateDelivery = useCallback(async () => {
     try {
       const res = await fetch(`${API}/simulate-delivery`, {
@@ -72,7 +70,6 @@ export default function App() {
       setLastDelivery(result);
       setBallAnimation(result.ball_zone);
 
-      // Update match state
       const newMatch = {
         ...match,
         runs:    match.runs    + result.runs,
@@ -96,13 +93,13 @@ export default function App() {
   const handleSuggestField = () => fetchField(match);
 
   return (
-    <div className="min-h-screen bg-gray-950 flex flex-col">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <Header />
 
-      <main className="flex-1 flex flex-col xl:flex-row gap-4 p-4 max-w-[1600px] mx-auto w-full">
+      <main className="flex-1 flex flex-col xl:flex-row gap-5 p-5 max-w-[1600px] mx-auto w-full">
 
         {/* Left: Controls */}
-        <aside className="xl:w-80 flex flex-col gap-4 shrink-0">
+        <aside className="xl:w-72 flex flex-col gap-4 shrink-0">
           <MatchControls
             match={match}
             onChange={handleMatchChange}
@@ -121,25 +118,25 @@ export default function App() {
         <section className="flex-1 flex flex-col items-center gap-4 min-w-0">
 
           {/* Tab bar */}
-          <div className="flex gap-1 glass rounded-xl p-1 self-start">
+          <div className="flex gap-0.5 bg-gray-100 border border-gray-200 rounded-lg p-0.5 self-start">
             {["field", "simulate"].map(t => (
               <button
                 key={t}
                 onClick={() => setTab(t)}
-                className={`px-4 py-1.5 rounded-lg text-sm font-medium transition-all ${
+                className={`px-4 py-1.5 rounded-md text-sm font-medium transition-all ${
                   tab === t
-                    ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/30"
-                    : "text-gray-400 hover:text-white"
+                    ? "bg-white text-gray-900 shadow-sm border border-gray-200"
+                    : "text-gray-500 hover:text-gray-700"
                 }`}
               >
-                {t === "field" ? "🏏 Field" : "Simulate"}
+                {t === "field" ? "Field View" : "Simulate"}
               </button>
             ))}
           </div>
 
           {error && (
-            <div className="glass border-red-500/30 text-red-400 px-4 py-3 rounded-xl text-sm w-full max-w-2xl">
-              ⚠ {error} — Make sure the backend is running (<code>uvicorn api:app --reload</code>)
+            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm w-full max-w-2xl">
+              {error} — Make sure the backend is running (<code>uvicorn api:app --reload</code>)
             </div>
           )}
 

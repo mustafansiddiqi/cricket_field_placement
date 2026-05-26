@@ -135,18 +135,18 @@ export default function CricketField({ fieldData, loading, ballAnimation, matchP
 
       {/* Loading overlay */}
       {loading && (
-        <div className="absolute inset-0 z-20 flex items-center justify-center rounded-full bg-black/40 backdrop-blur-sm">
+        <div className="absolute inset-0 z-20 flex items-center justify-center rounded-full bg-white/60 backdrop-blur-sm">
           <div className="flex flex-col items-center gap-3">
             <div className="w-10 h-10 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
-            <span className="text-sm text-emerald-400 font-medium">Calculating field…</span>
+            <span className="text-sm text-emerald-600 font-medium">Calculating field…</span>
           </div>
         </div>
       )}
 
       <svg
         viewBox="0 0 700 700"
-        className="w-full drop-shadow-2xl"
-        style={{ filter: "drop-shadow(0 20px 60px rgba(0,0,0,0.8))" }}
+        className="w-full"
+        style={{ filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.12))" }}
       >
         {/* ── Definitions ── */}
         <defs>
@@ -172,7 +172,7 @@ export default function CricketField({ fieldData, loading, ballAnimation, matchP
         </defs>
 
         {/* ── Background ── */}
-        <rect width="700" height="700" fill="#111827" />
+        <rect width="700" height="700" fill="#f9fafb" />
 
         {/* ── Outer field (clipped oval) ── */}
         <circle cx={CX} cy={CY} r={OR + 4} fill="url(#grassStripe)" />
@@ -245,7 +245,7 @@ export default function CricketField({ fieldData, loading, ballAnimation, matchP
           { x: CX, y: 678,      label: "THIRD MAN / FINE LEG" },
         ].map((d, i) => (
           <text key={i} x={d.x} y={d.y}
-            textAnchor="middle" fontSize={7} fill="rgba(255,255,255,0.2)"
+            textAnchor="middle" fontSize={7} fill="rgba(0,0,0,0.2)"
             fontWeight="600" letterSpacing="1" style={{ userSelect: "none" }}>
             {d.label}
           </text>
@@ -267,14 +267,14 @@ export default function CricketField({ fieldData, loading, ballAnimation, matchP
         {/* ── Empty state ── */}
         {!fieldData && !loading && (
           <g>
-            <circle cx={CX} cy={CY} r={60} fill="rgba(0,0,0,0.3)" />
-            <text x={CX} y={CY - 12} textAnchor="middle" fontSize={28} fill="rgba(255,255,255,0.3)">🏏</text>
+            <circle cx={CX} cy={CY} r={60} fill="rgba(0,0,0,0.06)" />
+            <text x={CX} y={CY - 12} textAnchor="middle" fontSize={28} fill="rgba(0,0,0,0.2)">🏏</text>
             <text x={CX} y={CY + 16} textAnchor="middle" fontSize={11}
-              fill="rgba(255,255,255,0.3)" fontWeight="600">
+              fill="rgba(0,0,0,0.3)" fontWeight="600">
               Set match context →
             </text>
             <text x={CX} y={CY + 32} textAnchor="middle" fontSize={9}
-              fill="rgba(255,255,255,0.2)">
+              fill="rgba(0,0,0,0.2)">
               Suggest Field
             </text>
           </g>
@@ -284,9 +284,9 @@ export default function CricketField({ fieldData, loading, ballAnimation, matchP
         {positions.length > 0 && (
           <g>
             <rect x={CX - 30} y={CY + PH + 8} width={60} height={18} rx={9}
-              fill="rgba(0,0,0,0.6)" stroke="rgba(255,255,255,0.2)" strokeWidth={1} />
+              fill="rgba(255,255,255,0.85)" stroke="rgba(0,0,0,0.12)" strokeWidth={1} />
             <text x={CX} y={CY + PH + 20} textAnchor="middle" fontSize={9}
-              fill="rgba(255,255,255,0.6)" fontWeight="600">
+              fill="rgba(0,0,0,0.5)" fontWeight="600">
               {positions.length} / 11 set
             </text>
           </g>
@@ -294,7 +294,7 @@ export default function CricketField({ fieldData, loading, ballAnimation, matchP
       </svg>
 
       {/* Legend */}
-      <div className="flex justify-center gap-4 mt-2 text-xs text-gray-400">
+      <div className="flex justify-center gap-4 mt-2 text-xs text-gray-500">
         {[
           { color: "#f59e0b", label: "Keeper" },
           { color: "#f87171", label: "Catcher" },

@@ -22,23 +22,24 @@ export default function StatsPanel({ fieldData, match }) {
 
   const maxScore = sortedZones[0]?.[1] || 1;
 
-  const phaseColors = {
-    powerplay: "text-yellow-400",
-    middle:    "text-blue-400",
-    death:     "text-red-400",
+  const phaseConfig = {
+    powerplay: { label: "Powerplay",   color: "text-amber-600",  bg: "bg-amber-50  border-amber-200"  },
+    middle:    { label: "Middle Overs", color: "text-blue-600",  bg: "bg-blue-50   border-blue-200"   },
+    death:     { label: "Death Overs",  color: "text-red-600",   bg: "bg-red-50    border-red-200"    },
   };
+  const phase = phaseConfig[match_phase] || { label: match_phase, color: "text-gray-600", bg: "bg-gray-50 border-gray-200" };
 
   return (
-    <div className="glass rounded-2xl p-4 flex flex-col gap-4">
+    <div className="card rounded-2xl p-5 flex flex-col gap-4">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="font-bold text-white text-sm">Analysis</h2>
+        <h2 className="font-bold text-gray-900 text-sm">Analysis</h2>
         <div className="flex items-center gap-2">
-          <span className={`text-xs font-bold uppercase ${phaseColors[match_phase] || "text-gray-400"}`}>
-            {match_phase}
+          <span className={`text-[10px] font-bold uppercase px-2 py-0.5 rounded-full border ${phase.bg} ${phase.color}`}>
+            {phase.label}
           </span>
-          <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-gray-400">
-            {model_used === "ml" ? "🤖 ML Model" : "📐 Rules"}
+          <span className="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 font-medium border border-gray-200">
+            {model_used === "ml" ? "ML" : "Rules"}
           </span>
         </div>
       </div>
@@ -46,14 +47,14 @@ export default function StatsPanel({ fieldData, match }) {
       {/* Match snapshot */}
       <div className="grid grid-cols-3 gap-2">
         {[
-          { label: "Over",     value: `${match.over}.0` },
-          { label: "Score",    value: `${match.runs}/${match.wickets}` },
-          { label: "Format",   value: match.match_type.toUpperCase() },
+          { label: "Over",   value: `${match.over}.0` },
+          { label: "Score",  value: `${match.runs}/${match.wickets}` },
+          { label: "Format", value: match.match_type.toUpperCase() },
         ].map(stat => (
           <div key={stat.label}
-            className="bg-white/5 rounded-xl p-2.5 text-center border border-white/5">
-            <p className="text-lg font-bold text-white leading-none">{stat.value}</p>
-            <p className="text-[10px] text-gray-500 mt-0.5 uppercase tracking-wide">{stat.label}</p>
+            className="bg-gray-50 rounded-xl p-2.5 text-center border border-gray-100">
+            <p className="text-base font-bold text-gray-900 leading-none">{stat.value}</p>
+            <p className="text-[10px] text-gray-400 mt-0.5 uppercase tracking-wide">{stat.label}</p>
           </div>
         ))}
       </div>
@@ -63,16 +64,16 @@ export default function StatsPanel({ fieldData, match }) {
         <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
           Zone Threat
         </h3>
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           {sortedZones.map(([zone, score]) => {
             const pct = (score / maxScore) * 100;
             const isHigh = score === maxScore;
             return (
               <div key={zone} className="flex items-center gap-2">
-                <span className="text-[11px] text-gray-400 w-20 shrink-0">
+                <span className="text-[11px] text-gray-500 w-20 shrink-0 font-medium">
                   {ZONE_LABELS[zone] || zone}
                 </span>
-                <div className="flex-1 bg-white/5 rounded-full h-1.5 overflow-hidden">
+                <div className="flex-1 bg-gray-100 rounded-full h-1.5 overflow-hidden">
                   <div
                     className="h-full rounded-full transition-all duration-700"
                     style={{
@@ -83,7 +84,7 @@ export default function StatsPanel({ fieldData, match }) {
                     }}
                   />
                 </div>
-                <span className="text-[11px] font-mono text-gray-500 w-8 text-right">
+                <span className="text-[11px] font-mono text-gray-400 w-8 text-right">
                   {(score * 100).toFixed(0)}%
                 </span>
               </div>
@@ -100,19 +101,19 @@ export default function StatsPanel({ fieldData, match }) {
         <div className="flex flex-wrap gap-1.5">
           {positions.map(p => (
             <span key={p.key}
-              className="text-[11px] px-2 py-0.5 rounded-lg border font-medium"
+              className="text-[11px] px-2 py-0.5 rounded-md border font-medium"
               style={{
                 background: p.catching
-                  ? "rgba(248,113,113,0.1)"
+                  ? "#fef2f2"
                   : p.deep
-                  ? "rgba(167,139,250,0.1)"
-                  : "rgba(52,211,153,0.1)",
+                  ? "#f5f3ff"
+                  : "#f0fdf4",
                 borderColor: p.catching
-                  ? "rgba(248,113,113,0.3)"
+                  ? "#fecaca"
                   : p.deep
-                  ? "rgba(167,139,250,0.3)"
-                  : "rgba(52,211,153,0.3)",
-                color: p.catching ? "#f87171" : p.deep ? "#a78bfa" : "#34d399",
+                  ? "#ddd6fe"
+                  : "#bbf7d0",
+                color: p.catching ? "#dc2626" : p.deep ? "#7c3aed" : "#059669",
               }}
             >
               {p.full || p.label}
@@ -124,14 +125,14 @@ export default function StatsPanel({ fieldData, match }) {
       {/* Context tags */}
       <div className="flex flex-wrap gap-1.5">
         {[
-          { label: match.bowler_type === "pace" ? "🚀 Pace" : "🔄 Spin" },
-          { label: match.batsman_hand === "left" ? "🦾 LHB" : "🦾 RHB" },
-          { label: `💥 ${match.batsman_style}` },
-          { label: `🌤 ${match.weather}` },
+          match.bowler_type === "pace" ? "Pace" : "Spin",
+          match.batsman_hand === "left" ? "LHB" : "RHB",
+          match.batsman_style,
+          match.weather,
         ].map(t => (
-          <span key={t.label}
-            className="text-[11px] px-2 py-0.5 rounded-lg bg-white/5 text-gray-400 border border-white/10">
-            {t.label}
+          <span key={t}
+            className="text-[11px] px-2 py-0.5 rounded-md bg-gray-100 text-gray-500 border border-gray-200 font-medium capitalize">
+            {t}
           </span>
         ))}
       </div>
